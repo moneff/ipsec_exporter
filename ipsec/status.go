@@ -43,9 +43,10 @@ func (c *cliStatusProvider) statusOutput(tunnel connection) (string, error) {
 
 	out, err := cmd.Output()
 
-	if err != nil {
-		return "", err
-	}
+	// it returns 3 exitcode but correct output on freebsd, so we removed error checking
+	//if err != nil {
+	//	return "", err
+	//}
 
 	return string(out), nil
 }
@@ -84,9 +85,9 @@ func queryStatus(ipSecConfiguration *Configuration, provider statusProvider) map
 }
 
 func extractStatus(statusLine []byte) connectionStatus {
-	noMatchRegex := regexp.MustCompile(`no match`)
-	tunnelEstablishedRegex := regexp.MustCompile(`{[0-9]+}: *(INSTALLED|REKEYED|REKEYING)`)
-	connectionEstablishedRegex := regexp.MustCompile(`[[0-9]+]: *ESTABLISHED`)
+	noMatchRegex := regexp.MustCompile(`Security Associations \(0 up, 0 connecting\)`)
+	tunnelEstablishedRegex := regexp.MustCompile(`Security Associations \(1 up, 0 connecting\)`)
+	connectionEstablishedRegex := regexp.MustCompile(`Security Associations \(0 up, 1 connecting\)`)
 
 	if connectionEstablishedRegex.Match(statusLine) {
 		if tunnelEstablishedRegex.Match(statusLine) {
