@@ -1,7 +1,7 @@
 package exporter
 
 import (
-	"github.com/dennisstritzke/ipsec_exporter/ipsec"
+	"github.com/moneff/ipsec_exporter/ipsec"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/prometheus/common/log"

@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/dennisstritzke/ipsec_exporter/exporter"
-	"github.com/dennisstritzke/ipsec_exporter/ipsec"
+	"github.com/moneff/ipsec_exporter/exporter"
+	"github.com/moneff/ipsec_exporter/ipsec"
 	"github.com/spf13/cobra"
 	"os"
 )
