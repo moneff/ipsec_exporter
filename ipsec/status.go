@@ -41,7 +41,7 @@ func (c *cliStatusProvider) statusOutput(tunnel connection) (string, error) {
 		cmd = exec.Command("sudo", "ipsec", "statusall", tunnel.name)
 	}
 
-	out, err := cmd.Output()
+	out, _ := cmd.Output()
 
 	// it returns 3 exitcode but correct output on freebsd, so we removed error checking
 	//if err != nil {
