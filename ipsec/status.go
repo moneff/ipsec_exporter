@@ -42,7 +42,7 @@ func (c *cliStatusProvider) statusOutput(tunnel connection) (string, error) {
 	}
 
 	out, _ := cmd.Output()
-
+	log.Infof("UseSudo: , Status response: '%s', Status err: '%v'", UseSudo, out, err)
 	// it returns 3 exitcode but correct output on freebsd, so we removed error checking
 	//if err != nil {
 	//	return "", err
@@ -70,7 +70,6 @@ func queryStatus(ipSecConfiguration *Configuration, provider statusProvider) map
 				status: unknown,
 			}
 		} else {
-			log.Warnf("Tunnel installed status for line '%s'", out)
 			statusMap[connection.name] = &status{
 				up:         true,
 				status:     extractStatus([]byte(out)),
@@ -92,17 +91,13 @@ func extractStatus(statusLine []byte) connectionStatus {
 
 	if connectionEstablishedRegex.Match(statusLine) {
 		if tunnelEstablishedRegex.Match(statusLine) {
-			log.Warnf("Tunnel installed status for line '%s'", statusLine)
 			return tunnelInstalled
 		} else {
-			log.Warnf("Connection established status for line '%s'", statusLine)
 			return connectionEstablished
 		}
 	} else if noMatchRegex.Match(statusLine) {
-		log.Warnf("Tunnel down status for line '%s'", statusLine)
 		return down
 	}
-	log.Warnf("Unknown status for line '%s'", statusLine)
 	return unknown
 }
 
