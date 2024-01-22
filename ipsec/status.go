@@ -70,6 +70,7 @@ func queryStatus(ipSecConfiguration *Configuration, provider statusProvider) map
 				status: unknown,
 			}
 		} else {
+			log.Warnf("Tunnel installed status for line '%s'", out)
 			statusMap[connection.name] = &status{
 				up:         true,
 				status:     extractStatus([]byte(out)),
