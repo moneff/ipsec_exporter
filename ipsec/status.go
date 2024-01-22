@@ -91,14 +91,17 @@ func extractStatus(statusLine []byte) connectionStatus {
 
 	if connectionEstablishedRegex.Match(statusLine) {
 		if tunnelEstablishedRegex.Match(statusLine) {
+			log.Warnf("Tunnel installed status for line '%s'", statusLine)
 			return tunnelInstalled
 		} else {
+			log.Warnf("Connection established status for line '%s'", statusLine)
 			return connectionEstablished
 		}
 	} else if noMatchRegex.Match(statusLine) {
+		log.Warnf("Tunnel down status for line '%s'", statusLine)
 		return down
 	}
-
+	log.Warnf("Unknown status for line '%s'", statusLine)
 	return unknown
 }
 
