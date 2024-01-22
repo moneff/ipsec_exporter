@@ -42,7 +42,7 @@ func (c *cliStatusProvider) statusOutput(tunnel connection) (string, error) {
 	}
 
 	out, err := cmd.Output()
-	log.Infof("UseSudo: , Status response: '%s', Status err: '%v'", UseSudo, out, err)
+	log.Infof("UseSudo: %t, Status response: '%s', Status err: '%v'", UseSudo, out, err)
 	// it returns 3 exitcode but correct output on freebsd, so we removed error checking
 	//if err != nil {
 	//	return "", err
