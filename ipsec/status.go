@@ -56,7 +56,7 @@ func queryStatus(ipSecConfiguration *Configuration, provider statusProvider) map
 
 	for _, connection := range ipSecConfiguration.tunnel {
 		if connection.ignored {
-			statusMap[connection.name] = &status{
+			statusMap[connection.displayName] = &status{
 				up:     true,
 				status: ignored,
 			}
@@ -64,13 +64,13 @@ func queryStatus(ipSecConfiguration *Configuration, provider statusProvider) map
 		}
 
 		if out, err := provider.statusOutput(connection); err != nil {
-			log.Warnf("Unable to retrieve the status of tunnel '%s'. Reason: %v", connection.name, err)
-			statusMap[connection.name] = &status{
+			log.Warnf("Unable to retrieve the status of tunnel '%s'. Reason: %v", connection.displayName, err)
+			statusMap[connection.displayName] = &status{
 				up:     false,
 				status: unknown,
 			}
 		} else {
-			statusMap[connection.name] = &status{
+			statusMap[connection.displayName] = &status{
 				up:         true,
 				status:     extractStatus([]byte(out)),
 				bytesIn:    extractIntWithRegex(out, `([[0-9]+) bytes_i`),
