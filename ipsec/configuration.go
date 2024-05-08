@@ -10,6 +10,7 @@ import (
 
 type connection struct {
 	name    string
+	displayName string
 	ignored bool
 }
 
